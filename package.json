@@ -1,0 +1,42 @@
+{
+    "name": "admin-request-server",
+    "version": "1.0.0",
+    "description": "Admin request server",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon --watch src/**/*.ts --exec ts-node src/server.ts",
+        "start": "ts-node dist/server.js",
+        "build": "tsc -p ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GitiCat/admin-request-server.git"
+    },
+    "author": {
+        "name": "Zhuravlev Ivan",
+        "email": "ivan_zhuravlev_1997@mail.ru"
+    },
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/GitiCat/admin-request-server/issues"
+    },
+    "homepage": "https://github.com/GitiCat/admin-request-server#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "fs": "0.0.1-security",
+        "mysql2": "^2.2.5",
+        "sequelize": "^6.5.1",
+        "socket.io": "^4.0.0",
+        "ts-node": "^9.1.1",
+        "typescript": "^4.2.3"
+    },
+    "devDependencies": {
+        "@types/bluebird": "^3.5.33",
+        "@types/express": "^4.17.11",
+        "@types/node": "^14.14.35",
+        "@types/socket.io": "^2.1.13",
+        "@types/validator": "^13.1.3",
+        "nodemon": "^2.0.7",
+        "sequelize-cli": "^6.2.0"
+    }
+}
