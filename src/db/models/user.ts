@@ -1,61 +1,65 @@
 import { 
     Model,
-    Optional,
-    DataTypes 
+    DataTypes, 
+    BuildOptions
 } from 'sequelize'
 import * as Sequelize from 'sequelize'
-import { SequelizeAttributes } from '../typings/SequelizeAttributes/index'
 
-interface UserAttributes {
+export interface UserAttributes {
     id: number,
     login: string,
     password: string,
     firstName: string,
     middleName: string,
-    lastName: string
+    lastName: string,
+    createdAt?: Date,
+    updatedAt?: Date
 }
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+export interface UserModel extends Model<UserAttributes>, UserAttributes {}
+export class User extends Model<UserModel, UserAttributes> {}
 
-interface UserInstance extends Model<UserAttributes, UserCreationAttributes>,
-    UserAttributes {
-        createdAt?: Date,
-        updatedAt?: Date
-    }
+export type UserStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): UserModel
+}
 
-export default (sequelize: Sequelize.Sequelize) 
-    : Sequelize.Model<UserInstance, UserAttributes> => {
-
-    const attributes: SequelizeAttributes<UserAttributes> = {
+export default (sequelize: Sequelize.Sequelize): UserStatic => {
+    return <UserStatic>sequelize.define('users', {
         id: {
-            allowNull: false,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
-            primaryKey: true,
-            type: DataTypes.STRING,
-            unique: true
+            primaryKey: true
         },
         login: {
+            type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
-            type: DataTypes.STRING
+            unique: true
         },
         password: {
-            allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         firstName: {
-            allowNull: true,
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         middleName: {
-            allowNull: true,
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         lastName: {
-            allowNull: true,
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
         }
-    }
-
-    return sequelize.define<UserInstance, UserAttributes>('users', attributes)
+    })
 }
